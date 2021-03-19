@@ -1,4 +1,4 @@
-const BaseURL = 'http://128.199.0.5:3000';
+const BaseURL = 'http://shoumoji.codes:3000';
 
 export const getEachData = async () => {
   const results = await fetch(`${BaseURL}/data/each`, {
