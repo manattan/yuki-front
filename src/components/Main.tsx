@@ -7,8 +7,9 @@ import Graph2 from './Graph2';
 import { getEachData, getTotalData } from '../API/main';
 
 const MainContainer = styled.div`
+  top: 60px;
   min-height: calc(100vh - 100px);
-  margin: 20px;
+  margin: 20px 20px 0 20px;
   text-align: center;
 `;
 
@@ -20,16 +21,20 @@ const Main: React.FC = () => {
     setInterval(async () => {
       const results1 = await getEachData();
       const res: Array<Types.Graph2> = await results1.json();
-      const newData: Array<Types.Graph1> = [];
-      for (const tmp of res) {
-        newData.push(
-          Object.assign(tmp, { displayName: tmp.device_id + '   ' + tmp.date })
-        );
+      if (res) {
+        const newData: Array<Types.Graph1> = [];
+        for (const tmp of res) {
+          newData.push(
+            Object.assign(tmp, {
+              displayName: tmp.device_id + '   ' + tmp.date,
+            })
+          );
+        }
+        console.log(newData);
+        setData1(newData);
+        const results2 = await getTotalData();
+        setData2(await results2.json());
       }
-      console.log(newData);
-      setData1(newData);
-      const results2 = await getTotalData();
-      setData2(await results2.json());
     }, 1000);
   };
 

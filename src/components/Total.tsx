@@ -11,20 +11,32 @@ import {
 import { CircularProgress } from '@material-ui/core';
 import * as Types from '../types/main';
 import { getTotalData } from '../API/main';
+import Table2 from './Table2';
 
 const Container = styled.div`
-  margin: 40px;
+  margin: 40px 40px 0 40px;
   min-height: calc(100vh - 160px);
   padding: 0 0 0 20px;
 `;
 
 const TotalContainer: React.FC = () => {
-  const [data, setData] = useState<Array<Types.Graph2> | undefined>();
+  const [data, setData] = useState<Array<Types.table> | undefined>();
 
   useEffect(() => {
     setInterval(async () => {
       const results = await getTotalData();
-      setData(await results.json());
+      const newData: Array<Types.table> = [];
+      let i = 1;
+      for (const tmp of await results.json()) {
+        newData.push(
+          Object.assign(tmp, {
+            displayName: tmp.device_id + '   ' + tmp.date,
+            id: i,
+          })
+        );
+        i++;
+      }
+      setData(newData);
     }, 1000);
   }, []);
 
@@ -54,6 +66,7 @@ const TotalContainer: React.FC = () => {
           <YAxis dataKey="device_id" type="category" fontSize={10} />
           <Bar dataKey="points" barSize={18} fill="gray" />
         </ComposedChart>
+        <Table2 data={data} />
       </Container>
     );
   }

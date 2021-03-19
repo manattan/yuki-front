@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 
 const HeadContainer = styled.div`
   height: 60px;
+  width: 100%;
   background-color: #f0c5a9;
 `;
 

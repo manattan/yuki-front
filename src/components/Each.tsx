@@ -11,34 +11,41 @@ import {
 import { CircularProgress } from '@material-ui/core';
 import * as Types from '../types/main';
 import { getAllData } from '../API/main';
+import Table1 from './Table1';
 
 const Container = styled.div`
-  margin: 40px;
-  min-height: calc(100vh - 160px);
+  margin: 40px 40px 0 40px;
   padding: 0 0 0 20px;
 `;
 
 const EachContainer: React.FC = () => {
-  const [data, setData] = useState<Array<Types.Graph2> | undefined>();
+  const [data, setData] = useState<Array<Types.table> | undefined>();
 
   useEffect(() => {
     setInterval(async () => {
       const results = await getAllData();
       const res: Array<Types.Graph2> = await results.json();
-      const newData: Array<Types.Graph1> = [];
-      for (const tmp of res) {
-        newData.push(
-          Object.assign(tmp, { displayName: tmp.device_id + '   ' + tmp.date })
-        );
+      if (res) {
+        const newData: Array<Types.table> = [];
+        let i = 1;
+        for (const tmp of res) {
+          newData.push(
+            Object.assign(tmp, {
+              displayName: tmp.device_id + '   ' + tmp.date,
+              id: i,
+            })
+          );
+          i++;
+        }
+        setData(newData);
       }
-      setData(newData);
     }, 1000);
   }, []);
 
   if (data) {
     return (
       <Container>
-        <p>個別の結果ランキング</p>
+        <p>1日ごとの結果ランキング</p>
         <ComposedChart
           layout="vertical"
           data={data}
@@ -61,6 +68,7 @@ const EachContainer: React.FC = () => {
           <YAxis dataKey="displayName" type="category" fontSize={10} />
           <Bar dataKey="points" barSize={18} fill="gray" />
         </ComposedChart>
+        <Table1 data={data} />
       </Container>
     );
   }
