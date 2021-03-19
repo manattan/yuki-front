@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { Button } from '@material-ui/core';
 import * as Types from '../types/main';
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const Graph1: React.FC<Props> = (props: Props) => {
+  const history = useHistory();
   return (
     <Graph1Container>
       <h1>
@@ -39,7 +41,9 @@ const Graph1: React.FC<Props> = (props: Props) => {
       <div
         style={{ float: 'right', paddingRight: '100px', paddingTop: '20px' }}
       >
-        <Button variant="outlined">詳しく見る</Button>
+        <Button variant="outlined" onClick={() => history.push('/data/each')}>
+          詳しく見る
+        </Button>
       </div>
     </Graph1Container>
   );

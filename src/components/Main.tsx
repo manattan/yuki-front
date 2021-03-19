@@ -21,7 +21,7 @@ const Main: React.FC = () => {
       setData1(await results1.json());
       const results2 = await getTotalData();
       setData2(await results2.json());
-    }, 2000);
+    }, 1000);
   };
 
   useEffect(() => {

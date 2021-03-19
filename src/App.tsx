@@ -10,8 +10,8 @@ function App() {
   return (
     <div className="App">
       <div className="App-container">
-        <Header />
         <Router>
+          <Header />
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/data/each" component={EachContainer} />

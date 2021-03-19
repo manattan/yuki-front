@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
 const HeadContainer = styled.div`
@@ -8,6 +9,13 @@ const HeadContainer = styled.div`
 `;
 
 const Header: React.FC = () => {
+  const history = useHistory();
+  console.log(history)
+
+  const toHome = () => {
+    history.push({ pathname: "/" });
+  };
+
   return (
     <HeadContainer>
       <div
@@ -17,6 +25,7 @@ const Header: React.FC = () => {
           fontWeight: 'bold',
           display: 'inline-block',
         }}
+        onClick={toHome}
       >
         雪かきpoint計測するくん
       </div>
