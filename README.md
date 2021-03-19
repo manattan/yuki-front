@@ -1,6 +1,9 @@
 # 雪かきpoint計測するくん
 URL: https://yukikaki-points.web.app
 
+<img width="1409" alt="スクリーンショット 2021-03-20 1 25 48" src="https://user-images.githubusercontent.com/48730329/111812207-3cac9e00-891b-11eb-91a2-1e5e85cb4ad9.png">
+
+
 ## プロダクト名
 
 雪かき
