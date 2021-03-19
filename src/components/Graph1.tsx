@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { Button } from '@material-ui/core';
 import * as Types from '../types/main';
-import { getEachData } from '../API/main';
 
 const Graph1Container = styled.div`
   display: inline-block;
