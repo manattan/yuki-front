@@ -10,10 +10,9 @@ const HeadContainer = styled.div`
 
 const Header: React.FC = () => {
   const history = useHistory();
-  console.log(history)
 
   const toHome = () => {
-    history.push({ pathname: "/" });
+    history.push({ pathname: '/' });
   };
 
   return (
@@ -24,6 +23,7 @@ const Header: React.FC = () => {
           color: 'white',
           fontWeight: 'bold',
           display: 'inline-block',
+          cursor: 'pointer',
         }}
         onClick={toHome}
       >

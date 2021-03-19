@@ -1,7 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
-import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+import {
+  ComposedChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from 'recharts';
 import { Button } from '@material-ui/core';
 import * as Types from '../types/main';
 
@@ -34,6 +41,13 @@ const Graph2: React.FC<Props> = (props: Props) => {
         style={{ paddingLeft: 30 }}
       >
         <CartesianGrid stroke="#f1eae3" strokeDasharray="3 3" />
+        <Tooltip
+          wrapperStyle={{
+            width: '120px',
+            fontSize: '30%',
+            textAlign: 'center',
+          }}
+        />
         <XAxis type="number" fontSize={12} />
         <YAxis dataKey="device_id" type="category" fontSize={10} />
         <Bar dataKey="points" barSize={18} fill="gray" />
