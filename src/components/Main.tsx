@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Graph1 from './Graph1';
 import Graph2 from './Graph2';
+import { getEachData, getTotalData } from '../API/main';
 
 const MainContainer = styled.div`
   min-height: calc(100vh - 100px);
@@ -9,12 +10,32 @@ const MainContainer = styled.div`
 `;
 
 const Main: React.FC = () => {
-  return (
-    <MainContainer>
-      <Graph1 />
-      <Graph2 />
-    </MainContainer>
-  );
+  const [data1, setData1] = useState();
+  const [data2, setData2] = useState();
+
+  const getData = () => {
+    setInterval(async () => {
+      const results1 = await getEachData();
+      setData1(await results1.json());
+      const results2 = await getTotalData();
+      setData2(await results2.json());
+    }, 2000);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (data1 && data2) {
+    return (
+      <MainContainer>
+        <Graph1 data={data1} />
+        <Graph2 data={data2} />
+      </MainContainer>
+    );
+  }
+
+  return <div />;
 };
 
 export default Main;
