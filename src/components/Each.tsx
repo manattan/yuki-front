@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import { CircularProgress } from '@material-ui/core';
 import * as Types from '../types/main';
-import { getEachData } from '../API/main';
+import { getAllData } from '../API/main';
 
 const Container = styled.div`
   margin: 40px;
@@ -23,8 +23,15 @@ const EachContainer: React.FC = () => {
 
   useEffect(() => {
     setInterval(async () => {
-      const results = await getEachData();
-      setData(await results.json());
+      const results = await getAllData();
+      const res: Array<Types.Graph2> = await results.json();
+      const newData: Array<Types.Graph1> = [];
+      for (const tmp of res) {
+        newData.push(
+          Object.assign(tmp, { displayName: tmp.device_id + '   ' + tmp.date })
+        );
+      }
+      setData(newData);
     }, 1000);
   }, []);
 
@@ -36,7 +43,7 @@ const EachContainer: React.FC = () => {
           layout="vertical"
           data={data}
           width={1200}
-          height={500}
+          height={600}
           margin={{
             left: 50,
           }}
@@ -45,13 +52,13 @@ const EachContainer: React.FC = () => {
           <CartesianGrid stroke="#f1eae3" strokeDasharray="3 3" />
           <Tooltip
             wrapperStyle={{
-              width: '120px',
+              width: '200px',
               fontSize: '30%',
               textAlign: 'center',
             }}
           />
           <XAxis type="number" fontSize={10} />
-          <YAxis dataKey="device_id" type="category" fontSize={10} />
+          <YAxis dataKey="displayName" type="category" fontSize={10} />
           <Bar dataKey="points" barSize={18} fill="gray" />
         </ComposedChart>
       </Container>

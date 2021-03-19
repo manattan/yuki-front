@@ -34,7 +34,7 @@ const Graph2: React.FC<Props> = (props: Props) => {
         layout="vertical"
         data={props.data}
         width={540}
-        height={400}
+        height={450}
         margin={{
           left: 50,
         }}

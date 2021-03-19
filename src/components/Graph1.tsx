@@ -20,7 +20,7 @@ const Graph1Container = styled.div`
 `;
 
 interface Props {
-  data: Array<Types.Graph2> | undefined;
+  data: Array<Types.Graph1> | undefined;
 }
 
 const Graph1: React.FC<Props> = (props: Props) => {
@@ -34,7 +34,7 @@ const Graph1: React.FC<Props> = (props: Props) => {
         layout="vertical"
         data={props.data}
         width={540}
-        height={400}
+        height={450}
         margin={{
           left: 50,
         }}
@@ -42,14 +42,14 @@ const Graph1: React.FC<Props> = (props: Props) => {
       >
         <Tooltip
           wrapperStyle={{
-            width: '120px',
+            width: '200px',
             fontSize: '30%',
             textAlign: 'center',
           }}
         />
         <CartesianGrid stroke="#f1eae3" strokeDasharray="3 3" />
         <XAxis type="number" fontSize={10} />
-        <YAxis dataKey="device_id" type="category" fontSize={10} />
+        <YAxis dataKey="displayName" type="category" fontSize={10} />
         <Bar dataKey="points" barSize={18} fill="gray" />
       </ComposedChart>
       <div
