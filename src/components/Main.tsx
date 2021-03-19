@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { CircularProgress } from '@material-ui/core';
 import Graph1 from './Graph1';
 import Graph2 from './Graph2';
 import { getEachData, getTotalData } from '../API/main';
@@ -7,6 +8,7 @@ import { getEachData, getTotalData } from '../API/main';
 const MainContainer = styled.div`
   min-height: calc(100vh - 100px);
   margin: 20px;
+  text-align: center;
 `;
 
 const Main: React.FC = () => {
@@ -35,7 +37,15 @@ const Main: React.FC = () => {
     );
   }
 
-  return <div />;
+  return (
+    <MainContainer>
+      <CircularProgress
+        color="inherit"
+        size={80}
+        style={{ marginTop: '100px' }}
+      />
+    </MainContainer>
+  );
 };
 
 export default Main;

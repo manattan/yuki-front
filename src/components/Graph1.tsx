@@ -20,7 +20,7 @@ const Graph1: React.FC<Props> = (props: Props) => {
   return (
     <Graph1Container>
       <h1>
-        <span style={{ fontSize: 15 }}>1回ごとのランキング</span>
+        <span style={{ fontSize: 25 }}>1回ごとのランキング</span>
       </h1>
       <ComposedChart
         layout="vertical"

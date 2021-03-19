@@ -19,7 +19,7 @@ const Graph2: React.FC<Props> = (props: Props) => {
   return (
     <Graph2Container>
       <h1>
-        <span style={{ fontSize: 15 }}>累計ランキング</span>
+        <span style={{ fontSize: 25 }}>累計ランキング</span>
       </h1>
       <ComposedChart
         layout="vertical"
