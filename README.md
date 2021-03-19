@@ -1,46 +1,93 @@
-# Getting Started with Create React App
+# 雪かきpoint計測するくん
+URL: https://yukikaki-points.web.app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## プロダクト名
 
-## Available Scripts
+雪かき
 
-In the project directory, you can run:
+yuki-front(仮)
+yuki-api
 
-### `yarn start`
+## 機能
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+雪かきでどれだけ動いたかを計測し、とりあえず1機のデータがWebで見れる
+最新のデータで見れる、累積のデータを見れる
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### オプション
 
-### `yarn test`
+- 複数台でのランキング
+- 日別・月別でのランキング
+- 累積の記録
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## API仕様(ハード - サーバ)
 
-### `yarn build`
+### POST /post
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+不定期に来る、加速度センサが止まったらPOSTされる
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+huit-points == 動きの激しさの積算
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```json=
+{
+    "device-id": "hoge",
+    "huit-points": 12345 
+}
+```
 
-### `yarn eject`
+## API仕様(Webフロント - サーバー)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### GET /data/each (テスト用は /test/each)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1日ごとの結果上位１０件を取得
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### GET /data/all (テスト用は /test/all)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1日ごとの結果全件を取得
 
-## Learn More
+### GET /data/total (テスト用は/test/total)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+デバイスごとの累積結果を取得
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### body （全てのエンドポイントで同様）
+
+#### request
+
+#### response
+
+```json=
+[
+        {
+            "device_id": "XX0921", //string
+            "points": 28308, //num
+            "date": "2000-01-01T01:00:00+09:00"
+        },
+        {
+            "device_id": "XX0832",
+            "points": 58393928,
+            "date": "2000-01-01T01:00:00+09:00"
+        },
+        {
+            "device_id": "XX3322".
+            "points": 83211,
+            "date": "2000-01-01T01:00:00+09:00"
+        }
+]
+
+```
+
+## ハード構成
+- ESP32
+- 加速度センサー
+- モバイルバッテリー(電源スイッチ兼ねる)
+<!-- - ボタン?電源管理的にはあったほうがよさそう? -->
+<!-- - トグルスイッチ的な電源スイッチ -->
+
+### 動作
+加速度(X^2^+Y^2^+Z^2^-(1G相当)とか)を積算し、動きが止まったのを検知したら都度積算されたhuit-pointsを送信し、
+送信成功(レスポンス201)でhuit-pointsをリセットする
+操作は電源入れて雪かきして電源切るだけ
+
+### DBスキーマ(MariaDB)
+- device-id(INT)
+- point(BIGINT)
+- 受信日時(Date)
