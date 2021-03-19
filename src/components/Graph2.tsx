@@ -29,9 +29,9 @@ const data = [
 const Graph2: React.FC = () => {
   return (
     <Graph2Container>
-      <p>
+      <h1>
         <span style={{ fontSize: 15 }}>累計ランキング</span>
-      </p>
+      </h1>
       <ComposedChart
         layout="vertical"
         data={data}

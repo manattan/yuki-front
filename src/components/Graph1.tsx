@@ -46,9 +46,9 @@ const Graph1: React.FC = () => {
   if (newData) {
     return (
       <Graph1Container>
-        <p>
+        <h1>
           <span style={{ fontSize: 15 }}>各測定ごとのランキング</span>
-        </p>
+        </h1>
         <ComposedChart
           layout="vertical"
           data={newData}
